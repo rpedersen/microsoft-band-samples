@@ -15,12 +15,6 @@ namespace BandSupport
             await bandClient.TileManager.AddTileAsync(bandTile);
         }
 
-        public virtual async Task<string> TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> args)
-        {
-            await bandClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
-            return string.Empty;
-        }
-
         protected async Task<BandTile> CreateBandTileInternalAsync()
         {
             var bandTile = new BandTile(Id)
@@ -31,6 +25,12 @@ namespace BandSupport
             };
 
             return bandTile;
+        }
+
+        public virtual async Task<string> TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> args)
+        {
+            await bandClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
+            return string.Empty;
         }
 
         public Guid Id { get; set; }

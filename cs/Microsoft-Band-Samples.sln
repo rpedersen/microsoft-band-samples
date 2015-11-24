@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BandSupport", "BandSupport\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore", "AppCore\AppCore.csproj", "{E6611A34-B6BB-4402-8D54-DC75BAD5ABFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendMessage", "SendMessage\SendMessage.csproj", "{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,26 @@ Global
 		{E6611A34-B6BB-4402-8D54-DC75BAD5ABFE}.Release|x64.Build.0 = Release|Any CPU
 		{E6611A34-B6BB-4402-8D54-DC75BAD5ABFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{E6611A34-B6BB-4402-8D54-DC75BAD5ABFE}.Release|x86.Build.0 = Release|Any CPU
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|ARM.Build.0 = Debug|ARM
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|ARM.Deploy.0 = Debug|ARM
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|x64.ActiveCfg = Debug|x64
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|x64.Build.0 = Debug|x64
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|x64.Deploy.0 = Debug|x64
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|x86.ActiveCfg = Debug|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|x86.Build.0 = Debug|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Debug|x86.Deploy.0 = Debug|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|Any CPU.ActiveCfg = Release|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|ARM.ActiveCfg = Release|ARM
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|ARM.Build.0 = Release|ARM
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|ARM.Deploy.0 = Release|ARM
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|x64.ActiveCfg = Release|x64
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|x64.Build.0 = Release|x64
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|x64.Deploy.0 = Release|x64
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|x86.ActiveCfg = Release|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|x86.Build.0 = Release|x86
+		{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

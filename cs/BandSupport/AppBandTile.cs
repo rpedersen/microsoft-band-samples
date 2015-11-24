@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AppCore;
 using Microsoft.Band;
@@ -9,13 +10,16 @@ namespace BandSupport
 {
     public abstract class AppBandTile
     {
-        public virtual async Task CreateBandTileAsync(IBandClient bandClient)
+        public virtual async Task CreateBandTileIfNotExistsAsync(IBandClient bandClient)
         {
-            var bandTile = await CreateBandTileInternalAsync();
-            await bandClient.TileManager.AddTileAsync(bandTile);
+            if ((await bandClient.TileManager.GetTilesAsync()).All(bt => bt.TileId != Id))
+            {
+                var bandTile = await CreateBandTilelAsync();
+                await bandClient.TileManager.AddTileAsync(bandTile);
+            }
         }
 
-        protected async Task<BandTile> CreateBandTileInternalAsync()
+        protected async Task<BandTile> CreateBandTilelAsync()
         {
             var bandTile = new BandTile(Id)
             {

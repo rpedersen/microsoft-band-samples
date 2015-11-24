@@ -1,10 +1,24 @@
-﻿using BandSupport;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using AppCore;
+using BandSupport;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace CreateTile
+namespace SendMessage
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -16,7 +30,21 @@ namespace CreateTile
             this.InitializeComponent();
         }
 
-        private async void CreateTileButton_Click(object sender, RoutedEventArgs e)
+        private async void SendMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            await CreateTileIfNotExistsAsync();
+
+            var bandClient = await AppBandManager.Instance.GetBandClientAsync();
+
+            var notification = new Notification
+            {
+
+            };
+
+            await AppBandManager.Instance.AppBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
+        }
+
+        private async Task CreateTileIfNotExistsAsync()
         {
             // Get the shared instance of the Band client. The instance of the band client is
             // shared be the whole context of the app as prescribed by the Band documention.

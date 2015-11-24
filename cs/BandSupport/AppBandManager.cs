@@ -104,7 +104,7 @@ namespace BandSupport
         {
             foreach (var appBandTile in AppBandTileManager.AppBandTiles)
             {
-                await appBandTile.CreateBandTileAsync(bandClient);
+                await appBandTile.CreateBandTileIfNotExistsAsync(bandClient);
             }
         }
 

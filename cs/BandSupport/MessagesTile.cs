@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AppCore;
 using Microsoft.Band;
+using Microsoft.Band.Notifications;
 
 namespace BandSupport
 {
@@ -17,11 +19,9 @@ namespace BandSupport
             SmallIconUri = new Uri("ms-appx:///Assets/MessageTileSmall.png");
         }
 
-        public async override Task CreateBandTileAsync(IBandClient bandClient)
+        public override Task ReceiveNotificationAsync(IBandClient bandClient, Notification notification)
         {
-            var bandTile = await CreateBandTileInternalAsync();
-
-            await bandClient.TileManager.AddTileAsync(bandTile);
+            await bandClient.NotificationManager.SendMessageAsync(Id, notification.Title, notification.Message, DateTimeOffset.Now, MessageFlags.ShowDialog);
         }
     }
 }

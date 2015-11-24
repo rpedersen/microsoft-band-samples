@@ -22,5 +22,11 @@ namespace AppCore
 
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }
+
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
+
+        [JsonProperty(PropertyName = "showDialog")]
+        public bool ShowDialog { get; set; }
     }
 }

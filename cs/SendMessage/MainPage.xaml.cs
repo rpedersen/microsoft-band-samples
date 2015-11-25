@@ -30,21 +30,7 @@ namespace SendMessage
             this.InitializeComponent();
         }
 
-        private async void SendMessageButton_Click(object sender, RoutedEventArgs e)
-        {
-            await CreateTileIfNotExistsAsync();
-
-            var bandClient = await AppBandManager.Instance.GetBandClientAsync();
-
-            var notification = new Notification
-            {
-
-            };
-
-            await AppBandManager.Instance.AppBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
-        }
-
-        private async Task CreateTileIfNotExistsAsync()
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             // Get the shared instance of the Band client. The instance of the band client is
             // shared be the whole context of the app as prescribed by the Band documention.
@@ -60,6 +46,34 @@ namespace SendMessage
             // the band. Passing in the band client just reduces that to one line of code instead
             // of two.
             await customMessagesTile.CreateBandTileIfNotExistsAsync(bandClient);
+        }
+
+        private async void SendMessageWithDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+            var bandClient = await AppBandManager.Instance.GetBandClientAsync();
+
+            var notification = new Notification
+            {
+                Title = "Message With Dialog",
+                Message = "This is the long message that goes under the title."
+            };
+
+            await AppBandManager.Instance.AppBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
+        }
+
+        private async void SendMessageWithoutDialogButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            var bandClient = await AppBandManager.Instance.GetBandClientAsync();
+
+            var notification = new Notification
+            {
+                Title = "Message With Dialog",
+                Message = "This is the long message that goes under the title.",
+                ShowDialog = false
+            };
+
+            await AppBandManager.Instance.AppBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
     }
 }

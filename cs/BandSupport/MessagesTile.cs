@@ -19,9 +19,10 @@ namespace BandSupport
             SmallIconUri = new Uri("ms-appx:///Assets/MessageTileSmall.png");
         }
 
-        public override Task ReceiveNotificationAsync(IBandClient bandClient, Notification notification)
+        public async override Task ReceiveNotificationAsync(IBandClient bandClient, Notification notification)
         {
-            await bandClient.NotificationManager.SendMessageAsync(Id, notification.Title, notification.Message, DateTimeOffset.Now, MessageFlags.ShowDialog);
+            var messageFlags = notification.ShowDialog ? MessageFlags.ShowDialog : MessageFlags.None;
+            await bandClient.NotificationManager.SendMessageAsync(Id, notification.Title, notification.Message, DateTimeOffset.Now, messageFlags);
         }
     }
 }

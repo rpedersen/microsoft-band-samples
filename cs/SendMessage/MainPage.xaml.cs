@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using AppCore;
 using BandSupport;
@@ -37,15 +25,15 @@ namespace SendMessage
             var bandClient = await AppBandManager.Instance.GetBandClientAsync();
 
             // Get an instance of the tile that I want to create. Because I am using an abstraction
-            // I can get the tile from the custom tile manager and then tell 
-            var customMessagesTile = AppBandManager.Instance.AppBandTileManager.CustomMessagesTile;
+            // I can get the tile from the custom tile manager
+            var messagesTile = AppBandManager.Instance.AppBandTileManager.MessagesTile;
 
             // use the abstraction to create the actual band tile and add it to the band using
             // the band client that is passed in. We could have used the tile wrapper to just get
             // and instance of the real band tile and then made a second call to add the tile to
             // the band. Passing in the band client just reduces that to one line of code instead
             // of two.
-            await customMessagesTile.CreateBandTileIfNotExistsAsync(bandClient);
+            await messagesTile.CreateBandTileIfNotExistsAsync(bandClient);
         }
 
         private async void SendMessageWithDialogButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +51,6 @@ namespace SendMessage
 
         private async void SendMessageWithoutDialogButton_Click(object sender, RoutedEventArgs e)
         {
-
             var bandClient = await AppBandManager.Instance.GetBandClientAsync();
 
             var notification = new Notification

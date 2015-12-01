@@ -16,7 +16,7 @@ namespace BandSupport
             Name = "Messages";
             Kind = AppBandTileKind.Messages;
             TileIconUri = new Uri("ms-appx:///Assets/MessagesTileLarge.png");
-            SmallIconUri = new Uri("ms-appx:///Assets/MessageTileSmall.png");
+            SmallIconUri = new Uri("ms-appx:///Assets/MessagesTileSmall.png");
         }
 
         public async override Task ReceiveNotificationAsync(IBandClient bandClient, Notification notification)

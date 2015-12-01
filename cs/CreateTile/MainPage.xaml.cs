@@ -23,15 +23,15 @@ namespace CreateTile
             var bandClient = await AppBandManager.Instance.GetBandClientAsync();
 
             // Get an instance of the tile that I want to create. Because I am using an abstraction
-            // I can get the tile from the custom tile manager and then tell 
-            var customMessagesTile = AppBandManager.Instance.AppBandTileManager.CustomMessagesTile;
+            // I can get the tile from the custom tile manager. 
+            var messagesTile = AppBandManager.Instance.AppBandTileManager.MessagesTile;
 
             // use the abstraction to create the actual band tile and add it to the band using
             // the band client that is passed in. We could have used the tile wrapper to just get
             // and instance of the real band tile and then made a second call to add the tile to
             // the band. Passing in the band client just reduces that to one line of code instead
             // of two.
-            await customMessagesTile.CreateBandTileIfNotExistsAsync(bandClient);
+            await messagesTile.CreateBandTileIfNotExistsAsync(bandClient);
         }
     }
 }

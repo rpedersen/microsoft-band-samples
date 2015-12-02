@@ -35,32 +35,5 @@ namespace SendMessage
             // of two.
             await messagesTile.CreateBandTileIfNotExistsAsync(bandClient);
         }
-
-        private async void SendMessageWithDialogButton_Click(object sender, RoutedEventArgs e)
-        {
-            var bandClient = await AppBandManager.Instance.GetBandClientAsync();
-
-            var notification = new Notification
-            {
-                Title = "Message With Dialog",
-                Message = "This is the long message that goes under the title."
-            };
-
-            await AppBandManager.Instance.AppBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
-        }
-
-        private async void SendMessageWithoutDialogButton_Click(object sender, RoutedEventArgs e)
-        {
-            var bandClient = await AppBandManager.Instance.GetBandClientAsync();
-
-            var notification = new Notification
-            {
-                Title = "Message With Dialog",
-                Message = "This is the long message that goes under the title.",
-                ShowDialog = false
-            };
-
-            await AppBandManager.Instance.AppBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
-        }
     }
 }

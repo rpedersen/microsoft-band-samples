@@ -23,6 +23,7 @@ namespace BandSupport
         {
             var messageFlags = notification.ShowDialog ? MessageFlags.ShowDialog : MessageFlags.None;
             await bandClient.NotificationManager.SendMessageAsync(Id, notification.Title, notification.Message, DateTimeOffset.Now, messageFlags);
+            await bandClient.NotificationManager.VibrateAsync(VibrationType.ThreeToneHigh);
         }
     }
 }

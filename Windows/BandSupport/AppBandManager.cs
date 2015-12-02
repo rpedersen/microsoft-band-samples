@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Windows.UI;
-using AppCore;
 using Microsoft.Band;
 
 namespace BandSupport
@@ -48,24 +47,6 @@ namespace BandSupport
             var bandClient = await GetBandClientAsync();
             await SetThemeAsync(bandClient);
             await SetBackgroundAsync(bandClient);
-            await DeleteBandTiles(bandClient);
-            await CreateBandTilesAsync(bandClient);
-        }
-
-        public async Task ReceiveNotificationAsync(Notification notification)
-        {
-            AppBandTile tile = null;
-
-            if (notification.Kind == NotificationKind.CustomMessage)
-            {
-                tile = AppBandTileManager.CustomMessagesTile;
-            }
-
-            if (tile != null)
-            {
-                var bandClient = await GetBandClientAsync();
-                await tile.ReceiveNotificationAsync(bandClient, notification);
-            }
         }
 
         private static async Task SetThemeAsync(IBandClient bandClient)
@@ -89,25 +70,5 @@ namespace BandSupport
 
             await bandClient.PersonalizationManager.SetMeTileImageAsync(bandImage);
         }
-
-        private static async Task DeleteBandTiles(IBandClient bandClient)
-        {
-            var tiles = await bandClient.TileManager.GetTilesAsync();
-
-            foreach (var tile in tiles)
-            {
-                await bandClient.TileManager.RemoveTileAsync(tile);
-            }
-        }
-
-        private async Task CreateBandTilesAsync(IBandClient bandClient)
-        {
-            foreach (var appBandTile in AppBandTileManager.AppBandTiles)
-            {
-                await appBandTile.CreateBandTileIfNotExistsAsync(bandClient);
-            }
-        }
-
-        public AppBandTileManager AppBandTileManager { get; } = new AppBandTileManager();
     }
 }

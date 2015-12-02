@@ -12,11 +12,17 @@ namespace BandSupport
     {
         public virtual async Task CreateBandTileIfNotExistsAsync(IBandClient bandClient)
         {
-            if ((await bandClient.TileManager.GetTilesAsync()).All(bt => bt.TileId != Id))
+            if (!await ExistsOnBandAsync(bandClient))
             {
                 var bandTile = await CreateBandTilelAsync();
                 await bandClient.TileManager.AddTileAsync(bandTile);
             }
+        }
+        public async Task<bool> ExistsOnBandAsync(IBandClient bandClient)
+        {
+            var existingTiles = await bandClient.TileManager.GetTilesAsync();
+            var tileExists = existingTiles.Any(bt => bt.TileId == Id);
+            return tileExists;
         }
 
         protected async Task<BandTile> CreateBandTilelAsync()

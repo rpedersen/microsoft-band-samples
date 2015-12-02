@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{FF3060B0-A6AD-4ACE-89E8-B0DDF208FE35}</ProjectGuid>
+    <ProjectGuid>{F0AB7FC1-7D0C-4606-B661-64F067EDC9CB}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CreateTile</RootNamespace>
-    <AssemblyName>CreateTile</AssemblyName>
+    <RootNamespace>SendMessage</RootNamespace>
+    <AssemblyName>SendMessage</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -17,7 +17,7 @@
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>CreateTile_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>SendMessage_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -114,7 +114,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="CreateTile_TemporaryKey.pfx" />
+    <None Include="SendMessage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\Default.rd.xml" />
@@ -137,6 +137,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppCore\AppCore.csproj">
+      <Project>{E6611A34-B6BB-4402-8D54-DC75BAD5ABFE}</Project>
+      <Name>AppCore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BandSupport\BandSupport.csproj">
       <Project>{92a76056-6593-4a83-806c-30255aa912da}</Project>
       <Name>BandSupport</Name>

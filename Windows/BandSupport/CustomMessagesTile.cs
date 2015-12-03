@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Band;
+using Microsoft.Band.Tiles;
 
 namespace BandSupport
 {
@@ -11,6 +14,11 @@ namespace BandSupport
             Kind = AppBandTileKind.CustomMessages;
             TileIconUri = new Uri("ms-appx:///Assets/CustomMessagesTileLarge.png");
             SmallIconUri = new Uri("ms-appx:///Assets/CustomMessagesTileSmall.png");
+        }
+
+        public override Task<string> TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> args)
+        {
+            return base.TileButtonPressedAsync(bandClient, args);
         }
     }
 }

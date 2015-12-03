@@ -90,6 +90,12 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Content Include="..\Shared\Assets\CustomMessagesTileLarge.png">
+      <Link>Assets\CustomMessagesTileLarge.png</Link>
+    </Content>
+    <Content Include="..\Shared\Assets\CustomMessagesTileSmall.png">
+      <Link>Assets\CustomMessagesTileSmall.png</Link>
+    </Content>
     <Content Include="..\Shared\Assets\MessagesTileLarge.png">
       <Link>Assets\MessagesTileLarge.png</Link>
     </Content>

@@ -1,14 +1,18 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Core;
 using Microsoft.Band;
+using Microsoft.Band.Tiles;
 
-namespace BandSupport
+namespace BandApp
 {
     public class AppBandManager
     {
         public static readonly AppBandManager Instance = new AppBandManager();
 
+        private AppBandTileManager _appBandTileManager = AppBandTileManager.Instance;
         private IBandClient _bandClient;
 
         private AppBandManager()
@@ -26,6 +30,7 @@ namespace BandSupport
                 }
                 catch (Exception)
                 {
+                    _bandClient.TileManager.TileButtonPressed -= TileManagerOnTileButtonPressed;
                     _bandClient = null;
                 }
             }
@@ -39,7 +44,19 @@ namespace BandSupport
 
             _bandClient = await BandClientManager.Instance.ConnectAsync(pairedBands[0]);
 
+            _bandClient.TileManager.TileButtonPressed += TileManagerOnTileButtonPressed;
+
             return _bandClient;
+        }
+
+        private async void TileManagerOnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
+        {
+            var appBandTile = _appBandTileManager.AppBandTiles.FirstOrDefault(dt => bandTileEventArgs.TileEvent.TileId == dt.Id);
+
+            if (appBandTile != null)
+            {
+                await appBandTile.TileButtonPressedAsync(_bandClient, bandTileEventArgs);
+            }
         }
 
         public async Task SetupBandAsync()

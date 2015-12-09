@@ -3,7 +3,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using AppCore;
-using BandSupport;
+using Microsoft.Band;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -96,14 +96,29 @@ namespace BandApp
             await customMessagesTile.CreateBandTileIfNotExistsAsync(bandClient);
         }
 
-        private async void SendCustomMessageWithDialogButton_Click(object sender, RoutedEventArgs e)
+        private async void SendCustomMessageWithoutButton_Click(object sender, RoutedEventArgs e)
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
 
             var notification = new Notification
             {
-                Title = "Custom Message With Dialog",
-                Message = "This is the long custom message that goes under the custom title and before the 'Ack' button"
+                Kind = NotificationKind.CustomMessage,
+                Title = "Custom Message",
+                Message = "This is the long custom message that goes under the custom title"
+            };
+
+            await _appBandTileManager.CustomMessagesTile.ReceiveNotificationAsync(bandClient, notification);
+        }
+
+        private async void SendCustomMessageWithButton_Click(object sender, RoutedEventArgs e)
+        {
+            var bandClient = await _appBandManager.GetBandClientAsync();
+
+            var notification = new Notification
+            {
+                Kind = NotificationKind.CustomMessageWithButton,
+                Title = "Custom Message",
+                Message = "This is the long custom message that goes under the custom title and before the button"
             };
 
             await _appBandTileManager.CustomMessagesTile.ReceiveNotificationAsync(bandClient, notification);

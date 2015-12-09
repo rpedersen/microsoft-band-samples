@@ -3,6 +3,7 @@
     public enum NotificationKind
     {
         CustomMessage,
+        CustomMessageWithButton,
         Ack,
         BinQuery,
         BinStatus,

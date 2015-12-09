@@ -6,7 +6,7 @@ using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.Band.Tiles;
 
-namespace BandSupport
+namespace BandApp
 {
     public abstract class AppBandTile
     {
@@ -37,10 +37,9 @@ namespace BandSupport
             return bandTile;
         }
 
-        public virtual async Task<string> TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> args)
+        public virtual async Task TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> args)
         {
             await bandClient.NotificationManager.VibrateAsync(VibrationType.NotificationOneTone);
-            return string.Empty;
         }
 
         public Guid Id { get; set; }

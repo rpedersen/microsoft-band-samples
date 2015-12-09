@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AppCore;
 using Microsoft.Band;
 
-namespace BandSupport
+namespace BandApp
 {
     public class AppBandTileManager
     {

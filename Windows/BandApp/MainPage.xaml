@@ -46,8 +46,11 @@
                     <Button Content="Create Custom Messages Tile"
                             Click="CreateCustomMessagesTileButton_Click" />
 
-                    <Button Content="Send Custom Message With Dialog"
-                            Click="SendCustomMessageWithDialogButton_Click" />
+                    <Button Content="Send Custom Message Without Button"
+                            Click="SendCustomMessageWithoutButton_Click" />
+
+                    <Button Content="Send Custom Message With Button"
+                            Click="SendCustomMessageWithButton_Click" />
                 </StackPanel>
             </Border>
         </StackPanel>

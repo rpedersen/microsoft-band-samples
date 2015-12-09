@@ -111,10 +111,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppBandManager.cs" />
+    <Compile Include="AppBandTile.cs" />
+    <Compile Include="AppBandTileKind.cs" />
+    <Compile Include="AppBandTileManager.cs" />
+    <Compile Include="BandNotPairedException.cs" />
+    <Compile Include="BasicTwoWayCommunicationTile.cs" />
+    <Compile Include="ComplexSelectionTile.cs" />
+    <Compile Include="CustomMessagesTile.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessagesTile.cs" />
+    <Compile Include="PageElementKind.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UriExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -146,10 +157,6 @@
     <ProjectReference Include="..\AppCore\AppCore.csproj">
       <Project>{E6611A34-B6BB-4402-8D54-DC75BAD5ABFE}</Project>
       <Name>AppCore</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BandSupport\BandSupport.csproj">
-      <Project>{92a76056-6593-4a83-806c-30255aa912da}</Project>
-      <Name>BandSupport</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

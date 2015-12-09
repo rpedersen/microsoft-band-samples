@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BandSupport
+namespace BandApp
 {
     public class ComplexSelectionTile : AppBandTile
     {

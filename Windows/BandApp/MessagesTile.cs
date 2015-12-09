@@ -4,7 +4,7 @@ using AppCore;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 
-namespace BandSupport
+namespace BandApp
 {
     public class MessagesTile : AppBandTile
     {

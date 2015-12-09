@@ -6,7 +6,7 @@ using Microsoft.Band;
 using Microsoft.Band.Personalization;
 using Microsoft.Band.Tiles;
 
-namespace BandSupport
+namespace BandApp
 {
     public static class UriExtensions
     {

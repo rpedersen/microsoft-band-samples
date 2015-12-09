@@ -1,4 +1,4 @@
-﻿namespace BandSupport
+﻿namespace BandApp
 {
     public enum AppBandTileKind
     {

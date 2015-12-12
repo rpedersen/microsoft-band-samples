@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,15 +12,17 @@ namespace BandApp
 {
     public sealed partial class MainPage : Page
     {
+        private readonly CoreDispatcher _dispatcher;
         private readonly AppBandManager _appBandManager;
         private readonly AppBandTileManager _appBandTileManager;
 
         public MainPage()
         {
+            InitializeComponent();
+
+            _dispatcher = Window.Current.Dispatcher;
             _appBandManager = AppBandManager.Instance;
             _appBandTileManager = AppBandTileManager.Instance;
-
-            this.InitializeComponent();
         }
 
         private async void CreateMessagesTileButton_Click(object sender, RoutedEventArgs e)
@@ -94,6 +97,17 @@ namespace BandApp
             // the band. Passing in the band client just reduces that to one line of code instead
             // of two.
             await customMessagesTile.CreateBandTileIfNotExistsAsync(bandClient);
+            
+            customMessagesTile.CustomMessageButtonPressed += CustomMessagesTileOnCustomMessageButtonPressed;
+        }
+
+        private async void CustomMessagesTileOnCustomMessageButtonPressed(object sender, EventArgs eventArgs)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                var messageDialog = new MessageDialog("Custom Message Button was pressed");
+                await messageDialog.ShowAsync();
+            });
         }
 
         private async void SendCustomMessageWithoutButton_Click(object sender, RoutedEventArgs e)

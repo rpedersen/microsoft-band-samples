@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI;
-using Windows.UI.Core;
 using Microsoft.Band;
 using Microsoft.Band.Tiles;
 
@@ -12,7 +11,7 @@ namespace BandApp
     {
         public static readonly AppBandManager Instance = new AppBandManager();
 
-        private AppBandTileManager _appBandTileManager = AppBandTileManager.Instance;
+        private readonly AppBandTileManager _appBandTileManager = AppBandTileManager.Instance;
         private IBandClient _bandClient;
 
         private AppBandManager()

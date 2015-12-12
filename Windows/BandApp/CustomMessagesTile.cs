@@ -111,9 +111,28 @@ namespace BandApp
             await bandClient.NotificationManager.VibrateAsync(VibrationType.TwoToneHigh);
         }
 
-        public override Task TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
+        public async override Task TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
         {
-            return base.TileButtonPressedAsync(bandClient, bandTileEventArgs);
+            await base.TileButtonPressedAsync(bandClient, bandTileEventArgs);
+
+            if (bandTileEventArgs.TileEvent.ElementId == PageElementKind.CustomMessageButton)
+            {
+                OnCustomMessageButtonPressed(bandTileEventArgs);
+            }
         }
+
+        private void OnCustomMessageButtonPressed(BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
+        {
+            // this is a good place to integrate logging like event tracking with Application Insights
+            // https://azure.microsoft.com/en-us/documentation/articles/app-insights-api-custom-events-metrics/#track-event
+
+            if (CustomMessageButtonPressed != null)
+            {
+                var eventArgs = new EventArgs();
+                CustomMessageButtonPressed(this, eventArgs);
+            }
+        }
+
+        public event EventHandler CustomMessageButtonPressed;
     }
 }

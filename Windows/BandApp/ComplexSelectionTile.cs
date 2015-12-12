@@ -10,4 +10,31 @@ namespace BandApp
             Name = "Complex Selection";
         }
     }
+
+    public enum NumberButton
+    {
+        Zero = PageElementKind.ZeroButton,
+        One = PageElementKind.OneButton,
+        Two = PageElementKind.TwoButton,
+        Three = PageElementKind.ThreeButton,
+        Four = PageElementKind.FourButton,
+        Five = PageElementKind.FiveButton,
+        Six = PageElementKind.SixButton,
+        Seven = PageElementKind.SevenButton,
+        Eight = PageElementKind.EightButton,
+        Nine = PageElementKind.NineButton,
+    }
+
+    public enum AlphaButton
+    {
+        A = PageElementKind.AButton,
+        B = PageElementKind.BButton,
+        C = PageElementKind.CButton,
+        D = PageElementKind.DButton,
+        E = PageElementKind.EButton,
+        F = PageElementKind.FButton,
+        G = PageElementKind.GButton,
+        H = PageElementKind.HButton,
+        I = PageElementKind.IButton,
+    }
 }

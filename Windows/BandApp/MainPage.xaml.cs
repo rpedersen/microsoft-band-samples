@@ -4,7 +4,6 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using AppCore;
-using Microsoft.Band;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -137,5 +136,11 @@ namespace BandApp
 
             await _appBandTileManager.CustomMessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
+
+        private async void SendBasicTwoWayCommunicationButton_Click(object sender, RoutedEventArgs e)
+        { }
+
+        private async void CreateComplexSelectionTileButton_Click(object sender, RoutedEventArgs e)
+        { }
     }
 }

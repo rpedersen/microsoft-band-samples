@@ -16,6 +16,16 @@
                             Value="Center" />
                 </Style>
 
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin"
+                            Value="10,5,10,0" />
+                </Style>
+
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin"
+                            Value="10,0,10,5" />
+                </Style>
+
                 <Style TargetType="Border">
                     <Setter Property="BorderBrush"
                             Value="Black" />
@@ -51,6 +61,32 @@
 
                     <Button Content="Send Custom Message With Button"
                             Click="SendCustomMessageWithButton_Click" />
+                </StackPanel>
+            </Border>
+
+            <Border>
+                <StackPanel>
+                    <Button Content="Create Basic Two Way Communication Tile"
+                            Click="CreateCustomMessagesTileButton_Click" />
+
+                    <TextBlock Text="Input:" />
+                    <TextBox Name="BasicTwoWayCommunicationInput" />
+
+                    <Button Content="Send Basic Two Way Communication"
+                            Click="SendBasicTwoWayCommunicationButton_Click" />
+
+                    <TextBlock Text="Output:" />
+                    <TextBox Name="BasicTwoWayCommunicationOutput" />
+                </StackPanel>
+            </Border>
+
+            <Border>
+                <StackPanel>
+                    <Button Content="Create Complex Selection Tile"
+                            Click="CreateComplexSelectionTileButton_Click" />
+
+                    <TextBlock Text="Output:" />
+                    <TextBox Name="ComplexSelectionOutput" />
                 </StackPanel>
             </Border>
         </StackPanel>

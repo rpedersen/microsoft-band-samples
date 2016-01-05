@@ -15,7 +15,6 @@ namespace BandApp
             {
                 MessagesTile,
                 CustomMessagesTile,
-                BasicTwoWayCommunicationTile,
                 ComplexSelectionTile
             };
         }
@@ -70,8 +69,6 @@ namespace BandApp
         public MessagesTile MessagesTile { get; } = new MessagesTile();
 
         public CustomMessagesTile CustomMessagesTile { get; } = new CustomMessagesTile();
-
-        public BasicTwoWayCommunicationTile BasicTwoWayCommunicationTile { get; } = new BasicTwoWayCommunicationTile();
 
         public ComplexSelectionTile ComplexSelectionTile { get; } = new ComplexSelectionTile();
     }

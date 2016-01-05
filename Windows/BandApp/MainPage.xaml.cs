@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using AppCore;
+using Microsoft.Band.Tiles;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -22,6 +25,26 @@ namespace BandApp
             _dispatcher = Window.Current.Dispatcher;
             _appBandManager = AppBandManager.Instance;
             _appBandTileManager = AppBandTileManager.Instance;
+
+            InitializeEventHandlers();
+        }
+
+        private async Task InitializeEventHandlers()
+        {
+            var bandClient = await _appBandManager.GetBandClientAsync();
+            bandClient.TileManager.TileButtonPressed += TileManagerOnTileButtonPressed;
+            await bandClient.TileManager.StartReadingsAsync();
+        }
+
+        private async void TileManagerOnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
+        {
+            var appBandTile = _appBandTileManager.AppBandTiles.FirstOrDefault(dt => bandTileEventArgs.TileEvent.TileId == dt.Id);
+
+            if (appBandTile != null)
+            {
+                var bandClient = await _appBandManager.GetBandClientAsync();
+                await appBandTile.TileButtonPressedAsync(bandClient, bandTileEventArgs);
+            }
         }
 
         private async void CreateMessagesTileButton_Click(object sender, RoutedEventArgs e)
@@ -67,7 +90,7 @@ namespace BandApp
 
             var notification = new Notification
             {
-                Title = "Message With Dialog",
+                Title = "Message Without Dialog",
                 Message = "This is the long message that goes under the title."
             };
 
@@ -105,7 +128,12 @@ namespace BandApp
             await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
             {
                 var messageDialog = new MessageDialog("Custom Message Button was pressed");
-                await messageDialog.ShowAsync();
+                try
+                {
+                    await messageDialog.ShowAsync();
+                }
+                catch
+                { }
             });
         }
 
@@ -137,10 +165,33 @@ namespace BandApp
             await _appBandTileManager.CustomMessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
 
-        private async void SendBasicTwoWayCommunicationButton_Click(object sender, RoutedEventArgs e)
-        { }
-
         private async void CreateComplexSelectionTileButton_Click(object sender, RoutedEventArgs e)
-        { }
+        {
+            var bandClient = await _appBandManager.GetBandClientAsync();
+            var complexSelectionTile = _appBandTileManager.ComplexSelectionTile;
+
+            await complexSelectionTile.CreateBandTileIfNotExistsAsync(bandClient);
+
+            complexSelectionTile.SelectionChanged += ComplexSelectionTileOnSelectionChanged;
+        }
+
+        private async void ComplexSelectionTileOnSelectionChanged(object sender, SelectionEventArgs selectionEventArgs)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                try
+                {
+                    ComplexSelectionOutput.Text = selectionEventArgs.Selection;
+                }
+                catch
+                { }
+            });
+        }
+
+        private async void ResetBand_Click(object sender, RoutedEventArgs e)
+        {
+            var bandClient = await _appBandManager.GetBandClientAsync();
+            await _appBandTileManager.SetupBandAsync(bandClient);
+        }
     }
 }

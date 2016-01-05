@@ -7,10 +7,10 @@
         public const int CustomMessageButton = 3;
 
         public const int BinsFullButton = 4;
-        public const int SeatDupPartOneButton = 5;
-        public const int SeatDupPartTwoButton = 6;
-        public const int SeatDupPartThreeButton = 7;
-        public const int SeatDupGoButton = 8;
+        public const int ComplexSelectionPartOneButton = 5;
+        public const int ComplexSelectionPartTwoButton = 6;
+        public const int ComplexSelectionPartThreeButton = 7;
+        public const int ComplexSelectionGoButton = 8;
         public const int ZeroButton = 9;
         public const int OneButton = 10;
         public const int TwoButton = 11;
@@ -34,9 +34,5 @@
         public const int MessageText = 29;
         public const int MessageText2 = 30;
         public const int MessageAcknowledgement = 31;
-        public const int IropText = 32;
-        public const int IropText2 = 33;
-        public const int IropAcknowledgement = 34;
-        public const int BinsHalfFullButton = 35;
     }
 }

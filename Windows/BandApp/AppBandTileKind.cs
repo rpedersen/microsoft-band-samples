@@ -4,7 +4,6 @@
     {
         Messages,
         CustomMessages,
-        BasicTwoWayCommunication,
         ComplexSelection
     }
 }

@@ -22,9 +22,9 @@ namespace BandApp
             SmallIconUri = new Uri("ms-appx:///Assets/CustomMessagesTileSmall.png");
         }
 
-        public async override Task CreateBandTileIfNotExistsAsync(IBandClient bandClient)
+        protected async override Task<BandTile> CreateBandTilelAsync()
         {
-            var bandTile = await CreateBandTilelAsync();
+            var bandTile = await base.CreateBandTilelAsync();
 
             var customMessageLayout = CreateMessageLayout();
             bandTile.PageLayouts.Add(customMessageLayout);
@@ -32,7 +32,7 @@ namespace BandApp
             var customMessageWithAckButtonLayout = CreateMessageWithButtonLayout();
             bandTile.PageLayouts.Add(customMessageWithAckButtonLayout);
 
-            await bandClient.TileManager.AddTileAsync(bandTile);
+            return bandTile;
         }
 
         private static PageLayout CreateMessageLayout()
@@ -40,7 +40,7 @@ namespace BandApp
             var messageWrappedTextBlock = new WrappedTextBlock()
             {
                 ElementId = PageElementKind.CustomMessageText,
-                Rect = new PageRect(0, 0, 245, 102),
+                Rect = new PageRect(0, 0, 258, 102),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top
             };
@@ -48,7 +48,7 @@ namespace BandApp
             var messageWithoutAckButtonPanel = new ScrollFlowPanel(messageWrappedTextBlock)
             {
                 Orientation = FlowPanelOrientation.Vertical,
-                Rect = new PageRect(0, 0, 245, 102),
+                Rect = new PageRect(0, 0, 258, 102),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
             };
@@ -62,7 +62,7 @@ namespace BandApp
             var customMessageWrappedTextBlock = new WrappedTextBlock()
             {
                 ElementId = PageElementKind.CustomMessageText2,
-                Rect = new PageRect(0, 0, 245, 102),
+                Rect = new PageRect(0, 0, 258, 102),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top
             };
@@ -79,7 +79,7 @@ namespace BandApp
             var customMessageWithAckButtonPanel = new ScrollFlowPanel(customMessageWrappedTextBlock, customMessageButton)
             {
                 Orientation = FlowPanelOrientation.Vertical,
-                Rect = new PageRect(0, 0, 245, 102),
+                Rect = new PageRect(0, 0, 258, 102),
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Top,
             };

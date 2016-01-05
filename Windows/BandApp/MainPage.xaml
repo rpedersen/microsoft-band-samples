@@ -4,6 +4,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
+    
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <AppBarButton Icon="Setting"
+                          Label="Reset Band"
+                          Click="ResetBand_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel HorizontalAlignment="Center"
@@ -61,22 +69,6 @@
 
                     <Button Content="Send Custom Message With Button"
                             Click="SendCustomMessageWithButton_Click" />
-                </StackPanel>
-            </Border>
-
-            <Border>
-                <StackPanel>
-                    <Button Content="Create Basic Two Way Communication Tile"
-                            Click="CreateCustomMessagesTileButton_Click" />
-
-                    <TextBlock Text="Input:" />
-                    <TextBox Name="BasicTwoWayCommunicationInput" />
-
-                    <Button Content="Send Basic Two Way Communication"
-                            Click="SendBasicTwoWayCommunicationButton_Click" />
-
-                    <TextBlock Text="Output:" />
-                    <TextBox Name="BasicTwoWayCommunicationOutput" />
                 </StackPanel>
             </Border>
 

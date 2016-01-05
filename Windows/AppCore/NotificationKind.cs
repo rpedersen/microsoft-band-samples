@@ -4,11 +4,10 @@
     {
         CustomMessage,
         CustomMessageWithButton,
+        ComplexEvent,
         Ack,
         BinQuery,
         BinStatus,
-        SeatDup,
-        SeatManifest,
         Irop,
         Countdown
     }

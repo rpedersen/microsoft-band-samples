@@ -5,19 +5,27 @@ using AppCore;
 using Microsoft.Band;
 using Microsoft.Band.Notifications;
 using Microsoft.Band.Tiles;
+using Microsoft.Band.Tiles.Pages;
 
 namespace BandApp
 {
     public abstract class AppBandTile
     {
-        public virtual async Task CreateBandTileIfNotExistsAsync(IBandClient bandClient)
+        public async Task CreateBandTileIfNotExistsAsync(IBandClient bandClient)
         {
             if (!await ExistsOnBandAsync(bandClient))
             {
                 var bandTile = await CreateBandTilelAsync();
                 await bandClient.TileManager.AddTileAsync(bandTile);
+
+                var pageData = GetInitialPageData();
+                if (pageData != null)
+                {
+                    await bandClient.TileManager.SetPagesAsync(Id, pageData); 
+                }
             }
         }
+
         public async Task<bool> ExistsOnBandAsync(IBandClient bandClient)
         {
             var existingTiles = await bandClient.TileManager.GetTilesAsync();
@@ -25,7 +33,7 @@ namespace BandApp
             return tileExists;
         }
 
-        protected async Task<BandTile> CreateBandTilelAsync()
+        protected virtual async Task<BandTile> CreateBandTilelAsync()
         {
             var bandTile = new BandTile(Id)
             {
@@ -35,6 +43,11 @@ namespace BandApp
             };
 
             return bandTile;
+        }
+
+        protected virtual PageData GetInitialPageData()
+        {
+            return null;
         }
 
         public virtual async Task TileButtonPressedAsync(IBandClient bandClient, BandTileEventArgs<IBandTileButtonPressedEvent> args)

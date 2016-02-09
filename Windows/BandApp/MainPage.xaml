@@ -8,8 +8,8 @@
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
             <AppBarButton Icon="Setting"
-                          Label="Reset Band"
-                          Click="ResetBand_Click" />
+                          Label="Setup Band"
+                          Click="SetupBand_Click" />
         </CommandBar>
     </Page.BottomAppBar>
 
@@ -48,8 +48,8 @@
 
             <Border>
                 <StackPanel>
-                    <Button Content="Create Messages Tile"
-                            Click="CreateMessagesTileButton_Click" />
+                    <!--<Button Content="Create Messages Tile"
+                            Click="CreateMessagesTileButton_Click" />-->
 
                     <Button Content="Send Message With Dialog"
                             Click="SendMessageWithDialogButton_Click" />
@@ -61,8 +61,8 @@
 
             <Border>
                 <StackPanel>
-                    <Button Content="Create Custom Messages Tile"
-                            Click="CreateCustomMessagesTileButton_Click" />
+                    <!--<Button Content="Create Custom Messages Tile"
+                            Click="CreateCustomMessagesTileButton_Click" />-->
 
                     <Button Content="Send Custom Message Without Button"
                             Click="SendCustomMessageWithoutButton_Click" />
@@ -74,8 +74,8 @@
 
             <Border>
                 <StackPanel>
-                    <Button Content="Create Complex Selection Tile"
-                            Click="CreateComplexSelectionTileButton_Click" />
+                    <!--<Button Content="Create Complex Selection Tile"
+                            Click="CreateComplexSelectionTileButton_Click" />-->
 
                     <TextBlock Text="Output:" />
                     <TextBox Name="ComplexSelectionOutput" />

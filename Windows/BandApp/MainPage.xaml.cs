@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using AppCore;
 using Microsoft.Band.Tiles;
+using System.Diagnostics;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -32,8 +33,10 @@ namespace BandApp
         private async Task InitializeEventHandlers()
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
-            bandClient.TileManager.TileButtonPressed += TileManagerOnTileButtonPressed;
             await bandClient.TileManager.StartReadingsAsync();
+
+            var messageDialog = new MessageDialog("The Band is connected.\n\nAudience CHEERS loudly :)");
+            await messageDialog.ShowAsync();
         }
 
         private async void TileManagerOnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
@@ -74,12 +77,7 @@ namespace BandApp
                 ShowCreateTileDialog();
             }
 
-            var notification = new Notification
-            {
-                Title = "Message With Dialog",
-                Message = "This is the long message that goes under the title.",
-                ShowDialog = true
-            };
+            var notification = GetMessageWithDialog();
 
             await _appBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
@@ -88,18 +86,20 @@ namespace BandApp
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
 
-            var notification = new Notification
-            {
-                Title = "Message Without Dialog",
-                Message = "This is the long message that goes under the title."
-            };
+            // For demonstration purposes I am omitting the call to check if the tile exists
+            //if (!await _appBandTileManager.MessagesTile.ExistsOnBandAsync(bandClient))
+            //{
+            //    ShowCreateTileDialog();
+            //}
+
+            var notification = GetMessageWithoutDialog();
 
             await _appBandTileManager.MessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
 
         private static async void ShowCreateTileDialog()
         {
-            var messageDialog = new MessageDialog("The 'Create Messages Tile' button needs to be pressed before sending a message");
+            var messageDialog = new MessageDialog("The presenter didn't press the right button.\n\nEverybody shout, 'Press the Setup Band button!'");
             await messageDialog.ShowAsync();
         }
 
@@ -123,30 +123,11 @@ namespace BandApp
             customMessagesTile.CustomMessageButtonPressed += CustomMessagesTileOnCustomMessageButtonPressed;
         }
 
-        private async void CustomMessagesTileOnCustomMessageButtonPressed(object sender, EventArgs eventArgs)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-            {
-                var messageDialog = new MessageDialog("Custom Message Button was pressed");
-                try
-                {
-                    await messageDialog.ShowAsync();
-                }
-                catch
-                { }
-            });
-        }
-
         private async void SendCustomMessageWithoutButton_Click(object sender, RoutedEventArgs e)
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
 
-            var notification = new Notification
-            {
-                Kind = NotificationKind.CustomMessage,
-                Title = "Custom Message",
-                Message = "This is the long custom message that goes under the custom title"
-            };
+            var notification = GetCustomMessageWithoutButton();
 
             await _appBandTileManager.CustomMessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
@@ -155,12 +136,7 @@ namespace BandApp
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
 
-            var notification = new Notification
-            {
-                Kind = NotificationKind.CustomMessageWithButton,
-                Title = "Custom Message",
-                Message = "This is the long custom message that goes under the custom title and before the button"
-            };
+            var notification = GetCustomMessageWithButton();
 
             await _appBandTileManager.CustomMessagesTile.ReceiveNotificationAsync(bandClient, notification);
         }
@@ -172,7 +148,6 @@ namespace BandApp
 
             await complexSelectionTile.CreateBandTileIfNotExistsAsync(bandClient);
 
-            complexSelectionTile.SelectionChanged += ComplexSelectionTileOnSelectionChanged;
         }
 
         private async void ComplexSelectionTileOnSelectionChanged(object sender, SelectionEventArgs selectionEventArgs)
@@ -188,10 +163,78 @@ namespace BandApp
             });
         }
 
-        private async void ResetBand_Click(object sender, RoutedEventArgs e)
+        private async void SetupBand_Click(object sender, RoutedEventArgs e)
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
             await _appBandTileManager.SetupBandAsync(bandClient);
+
+            AppBandTileManager.Instance.CustomMessagesTile.CustomMessageButtonPressed += CustomMessagesTileOnCustomMessageButtonPressed;
+            AppBandTileManager.Instance.ComplexSelectionTile.SelectionChanged += ComplexSelectionTileOnSelectionChanged;
+        }
+
+        [DebuggerStepThrough]
+        private Notification GetMessageWithDialog()
+        {
+            var notification = new Notification
+            {
+                Title = "Message With Dialog",
+                Message = "Demo is working! Lots of clapping in the audience.",
+                ShowDialog = true
+            };
+
+            return notification;
+        }
+
+        [DebuggerStepThrough]
+        private Notification GetMessageWithoutDialog()
+        {
+            var notification = new Notification
+            {
+                Title = "Message Without Dialog",
+                Message = "Two buttons worked in a row! Ryan is completely surprised :)"
+            };
+
+            return notification;
+        }
+
+        [DebuggerStepThrough]
+        private Notification GetCustomMessageWithoutButton()
+        {
+            var notification = new Notification
+            {
+                Kind = NotificationKind.CustomMessage,
+                Title = "Custom Message",
+                Message = "Custom messages are awesome! The loud clapping from the audience is hurting my ears :)"
+            };
+
+            return notification;
+        }
+
+        [DebuggerStepThrough]
+        private Notification GetCustomMessageWithButton()
+        {
+            var notification = new Notification
+            {
+                Kind = NotificationKind.CustomMessageWithButton,
+                Title = "Custom Message With Button",
+                Message = "A message and a button! This demo is off-the-hook crazy good. Audence shouts, 'Show me more buttons!'"
+            };
+
+            return notification;
+        }
+
+        private async void CustomMessagesTileOnCustomMessageButtonPressed(object sender, EventArgs eventArgs)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+            {
+                var messageDialog = new MessageDialog("Audience goes wild (clap and cheer)...\n\nThis demo is rock'n!");
+                try
+                {
+                    await messageDialog.ShowAsync();
+                }
+                catch
+                { }
+            });
         }
     }
 }

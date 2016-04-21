@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d">
-    
+
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
             <AppBarButton Icon="Setting"
@@ -38,14 +38,39 @@
                     <Setter Property="BorderBrush"
                             Value="Black" />
                     <Setter Property="BorderThickness"
-                            Value="2" />
-                    <Setter Property="CornerRadius"
-                            Value="2" />
+                            Value="1" />
                     <Setter Property="Margin"
+                            Value="0,0,0,30" />
+                    <Setter Property="CornerRadius"
+                            Value="6" />
+                    <Setter Property="Padding"
                             Value="5" />
                 </Style>
             </StackPanel.Resources>
 
+            <TextBlock FontWeight="Bold"
+                       FontSize="22">Heart Rate</TextBlock>
+            <Border>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <TextBlock x:Name="HeartRateQuality"
+                               Width="100"
+                               FontWeight="Bold">-</TextBlock>
+
+                    <TextBlock x:Name="HeartRateValue"
+                               Width="100"
+                               FontWeight="Bold">-</TextBlock>
+
+                    <Button Content="Start"
+                            Click="StartHeartRateButton_Click" />
+
+                    <Button Content="Stop"
+                            Click="StopHeartRateButton_Click" />
+                </StackPanel>
+            </Border>
+
+            <TextBlock FontWeight="Bold"
+                       FontSize="22">Messages</TextBlock>
             <Border>
                 <StackPanel>
                     <!--<Button Content="Create Messages Tile"
@@ -59,6 +84,8 @@
                 </StackPanel>
             </Border>
 
+            <TextBlock FontWeight="Bold"
+                       FontSize="22">Custom Messages</TextBlock>
             <Border>
                 <StackPanel>
                     <!--<Button Content="Create Custom Messages Tile"
@@ -72,6 +99,8 @@
                 </StackPanel>
             </Border>
 
+            <TextBlock FontWeight="Bold"
+                       FontSize="22">Complex Selection</TextBlock>
             <Border>
                 <StackPanel>
                     <!--<Button Content="Create Complex Selection Tile"

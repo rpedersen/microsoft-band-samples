@@ -8,6 +8,8 @@ using Windows.UI.Xaml.Controls;
 using AppCore;
 using Microsoft.Band.Tiles;
 using System.Diagnostics;
+using Microsoft.Band;
+using Microsoft.Band.Sensors;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,13 +32,54 @@ namespace BandApp
             InitializeEventHandlers();
         }
 
-        private async Task InitializeEventHandlers()
+        private async void InitializeEventHandlers()
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
             await bandClient.TileManager.StartReadingsAsync();
 
             var messageDialog = new MessageDialog("The Band is connected.\n\nAudience CHEERS loudly :)");
             await messageDialog.ShowAsync();
+        }
+
+        private async void StartHeartRateButton_Click(object sender, RoutedEventArgs e)
+        {
+            var bandClient = await _appBandManager.GetBandClientAsync();
+            if (bandClient.SensorManager.HeartRate.GetCurrentUserConsent() != UserConsent.Granted)
+            {
+                var consent = await bandClient.SensorManager.HeartRate.RequestUserConsentAsync();
+
+                if (!consent)
+                {
+                    return;
+                }
+            }
+
+            bandClient.SensorManager.HeartRate.ReadingChanged += HeartRate_ReadingChanged;
+
+            await bandClient.SensorManager.HeartRate.StartReadingsAsync();
+        }
+
+        private async void HeartRate_ReadingChanged(object sender, BandSensorReadingEventArgs<IBandHeartRateReading> args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                try
+                {
+                    HeartRateQuality.Text = args.SensorReading.Quality.ToString();
+                    HeartRateValue.Text = args.SensorReading.HeartRate.ToString();
+                }
+                catch
+                { }
+            });
+        }
+
+        private async void StopHeartRateButton_Click(object sender, RoutedEventArgs args)
+        {
+            var bandClient = await _appBandManager.GetBandClientAsync();
+            await bandClient.SensorManager.HeartRate.StopReadingsAsync();
+            bandClient.SensorManager.HeartRate.ReadingChanged -= HeartRate_ReadingChanged;
+            HeartRateQuality.Text = "-";
+            HeartRateValue.Text = "-";
         }
 
         private async void TileManagerOnTileButtonPressed(object sender, BandTileEventArgs<IBandTileButtonPressedEvent> bandTileEventArgs)
@@ -72,7 +115,7 @@ namespace BandApp
         {
             var bandClient = await _appBandManager.GetBandClientAsync();
 
-            if (! await _appBandTileManager.MessagesTile.ExistsOnBandAsync(bandClient))
+            if (!await _appBandTileManager.MessagesTile.ExistsOnBandAsync(bandClient))
             {
                 ShowCreateTileDialog();
             }
@@ -119,7 +162,7 @@ namespace BandApp
             // the band. Passing in the band client just reduces that to one line of code instead
             // of two.
             await customMessagesTile.CreateBandTileIfNotExistsAsync(bandClient);
-            
+
             customMessagesTile.CustomMessageButtonPressed += CustomMessagesTileOnCustomMessageButtonPressed;
         }
 
